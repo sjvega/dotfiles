@@ -1,0 +1,168 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{definitions}
+
+
+\RequirePackage{mathtools,amsmath,amsthm,amssymb,bbm,tikz,enumitem,xifthen}
+\RequirePackage[utf8]{inputenc}
+\usetikzlibrary{matrix, arrows, cd, babel}
+
+\DeclareOption{spanish}{
+    \PassOptionsToPackage{\CurrentOption}{babel}
+}
+\DeclareOption{english}{
+    \PassOptionsToPackage{\CurrentOption}{babel}
+}
+\ExecuteOptions{spanish}
+
+\ProcessOptions\relax
+\RequirePackage{babel}
+
+\parindent 4pt
+\parskip 2pt  % Also, a bit of space between paragraphs
+
+\newtheorem{teorema}{Teorema}
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{proposicion}[teorema]{Proposición}
+\newtheorem{corolario}[teorema]{Corolario}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+
+\theoremstyle{definition}
+\newtheorem{definicion}[teorema]{Definición}
+\newtheorem{definition}[theorem]{Definition}
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{ejercicio}{Ejercicio}
+
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observacion}[teorema]{Observación}
+
+\newtheorem{example}[theorem]{Example}
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+
+\newtheorem{conjetura}[teorema]{Conjetura}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+
+\newenvironment{solucion}{\textit{Solución}.}
+
+%Listas
+\newlist{subitems}{enumerate}{3}
+\setlist[subitems,1]{
+  label=\emph{\alph*}),
+  labelwidth=\parindent,
+  itemsep=2pt plus 1pt minus 1pt,
+}
+\setlist[subitems,2]{
+  label=\emph{\roman*}),
+  labelwidth=\parindent,
+  itemsep=2pt plus 1pt minus 1pt,
+}
+%Símbolos
+
+\def\N{\mathbb{N}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\cP{\mathcal{P}}
+\def\cF{\mathcal{F}}
+\def\cH{\mathcal{H}}
+\def\cK{\mathcal{K}}
+\def\cL{\mathcal{L}}
+\def\cBH{\mathcal{B}(\mathcal{H})}
+\def\cKH{\mathcal{K}(\mathcal{H})}
+\def\rE{\mathrm{E}}
+\def\fT{\mathfrak{T}}
+\def\fA{\mathfrak{A}}
+\def\bk{\Bbbk}
+\def\b1{\mathbbm{1}}
+
+%Conjuntos de morfismos/matrices
+\DeclareMathOperator{\M}{\mathbb{M}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\rO}{O}
+\DeclareMathOperator{\rU}{U}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Idem}{Idem}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\sop}{sop}
+\DeclareMathOperator{\supp}{supp}
+%Diferenciales
+\def\dx{\mathrm{d}x}
+\def\dy{\mathrm{d}y}
+\def\dz{\mathrm{d}z}
+\def\dt{\mathrm{d}t}
+\def\d{\mathrm{d}}
+
+%Auxiliares
+\def\blank{\relbar}
+\def\inv{{-1}}
+\def\si{\text{ si }}
+\def\tif{\text{ if }}
+\def\sino{\text{ si no}}
+\def\otherwise{\text{ otherwise}}
+
+%Colímites
+\makeatletter
+\newcommand{\colim@}[2]{
+  \vtop{\m@th\ialign{##\cr
+    \hfil$#1\operator@font colim$\hfil\cr
+    \noalign{\nointerlineskip\kern1.5\ex@}#2\cr
+    \noalign{\nointerlineskip\kern-\ex@}\cr}}%
+}
+\newcommand{\colim}{%
+  \mathop{\mathpalette\colim@{\rightarrowfill@\textstyle}}\nmlimits@
+}
+\makeatother
+
+%Abreviaciones
+\renewcommand{\bar}[1]{\overline{#1}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\newcommand{\mcal}[1]{\mathcal{#1}}
+\newcommand{\mfrk}[1]{\mathfrak{#1}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+
+%Redefinir letras
+\newcommand{\oldphi}{\phi}
+%\renewcommand{\phi}{\varphi}
+\newcommand{\oldepsilon}{\epsilon}
+\renewcommand{\epsilon}{\varepsilon}
+
+
+% Título para practicas
+\makeatletter
+\global\let\@Materia\@empty
+\global\let\@MateriaRunning\@empty
+\global\let\@Cuatrimestre\@empty
+\global\let\@Practica\@empty
+\global\let\@Titulo\@empty
+
+
+\newcommand{\Materia}[1]{\gdef\@Materia{#1}}
+\newcommand{\Cuatrimestre}[1]{\gdef\@Cuatrimestre{#1}}
+\newcommand{\Practica}[1]{\gdef\@Practica{#1}}
+\newcommand{\Titulo}[1]{\gdef\@Titulo{#1}}
+
+\newcommand{\maketitlepractica}{
+  \begin{center}
+    {\LARGE\scshape \@Materia \par}%
+    {\Large \@Cuatrimestre \par}%
+    \vspace{1em}%
+    {\Large Práctica~\@Practica\; --  \@Titulo \par}%
+  \end{center}%
+  \hrule\@height 0.2pt\@width\textwidth 
+  \vskip 2.5em}
+\makeatother
+
