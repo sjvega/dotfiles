@@ -21,7 +21,7 @@ set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --show=drun | xargs swaymsg exec --
+set $menu fuzzel --config=/home/jim/.config/fuzzel/config | xargs swaymsg exec --
 #Colors
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
@@ -35,23 +35,31 @@ client.background       #ffffff
 ###########
 # Startup #
 ###########
-#exec_always --no-startup-id ~/.config/polybar/launch.sh
+##################
+# Monitor config #
+##################
+  output DP-1 resolution 3840x2160@240Hz position 1800,520 adaptive_sync on
+  output HDMI-A-1 resolution 3840x2160@60Hz position 0,0 transform 270 adaptive_sync on scale 1.25
+#
 # Notification center
 exec swaync
 # Clipboard manager
 exec wl-paste -t text --watch clipman store --no-persist
-#Autotiling
-exec --no-startup-id swaymgr 
-
-#Assign Windows to Workspaces
-assign [class="firefox"] $wksp3
-assign [class="Steam"] $wksp9
-assign [title="Steam"] $wksp9
+# Autotiling
+#exec
+# Backgrund
+exec dex -a
+exec swww init
+exec swww img ~/Pictures/Wallpapers/Vertical/japan20240212.jpg  -o HDMI-A-1 -t wave 
+# Numlock
+input type:keyboard xkb_numlock enabled
 #Disable borders
 for_window [class="^.*"] border pixel 5
 #Disable Mouse Focus
 focus_follows_mouse no
 
+# Steam Big Picture fix
+for_window [class="steam"] max_render_time off, blur off
 ########
 # Gaps #
 ########
@@ -62,21 +70,6 @@ gaps inner $dgaps_in
 gaps outer $dgaps_out
 gaps top $dgaps_top
 
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
 ####################
 ### Key bindings ###         
 ####################
@@ -97,7 +90,7 @@ gaps top $dgaps_top
     bindsym $mod+b exec firefox
 
     # Thunar
-    bindsym $mod+p exec thunar
+    bindsym $mod+t exec thunar
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -108,9 +101,6 @@ gaps top $dgaps_top
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
-
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -126,15 +116,10 @@ gaps top $dgaps_top
     bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    bindsym $mod+Control+$left move left
+    bindsym $mod+Control+$down move down
+    bindsym $mod+Control+$up move up
+    bindsym $mod+Control+$right move right
 ##############
 # Workspaces #
 ##############
@@ -151,8 +136,8 @@ set $wksp9 9:
 set $wksp10 10:
 set $wksp11 11:
 
-workspace $wksp1 output DP-2
-workspace $wksp2 output DP-2
+workspace $wksp1 output HDMI-A-1
+workspace $wksp2 output HDMI-A-1
 workspace $wksp3 output DP-1
 workspace $wksp4 output DP-1
 workspace $wksp5 output DP-1
@@ -175,6 +160,11 @@ bindsym $mod+8 workspace $wksp8
 bindsym $mod+9 workspace $wksp9
 bindsym $mod+0 workspace $wksp10
 
+# Move between workspaces
+bindsym $mod+grave workspace back_and_forth
+bindsym $mod+n workspace next_on_output
+bindsym $mod+p workspace prev_on_output
+
 # Move active window to workspace
 bindsym $mod+Control+1 move workspace $wksp1
 bindsym $mod+Control+2 move workspace $wksp2
@@ -186,6 +176,11 @@ bindsym $mod+Control+7 move workspace $wksp7
 bindsym $mod+Control+8 move workspace $wksp8
 bindsym $mod+Control+9 move workspace $wksp9
 bindsym $mod+Control+0 move workspace $wksp10
+
+#Assign Windows to Workspaces
+assign [class="firefox"] $wksp3
+assign [class="Steam"] $wksp9
+assign [title="Steam"] $wksp9
 ##################
 # Extra settings #
 ##################
@@ -206,9 +201,9 @@ bindsym $mod+Shift+n exec swaync-client -t -sw
     bindsym $mod+Shift+v splith
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+t layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+Shift+s layout stacking
+    bindsym $mod+Shift+t layout tabbed
+    bindsym $mod+Shift+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -257,26 +252,10 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    swaybar_command waybar
 }
 
 #Shutdown mode
-mode "[p]oweroff [r]eboot [s]uspend"  {
-    bindsym p exec systemctl poweroff
-    bindsym r exec systemctl reboot
-    bindsym s exec systemctl suspend
-    bindsym Return mode "default":w
-    bindsym Escape mode "default"
-}
+set $powermenu /home/jim/.config/fuzzel/scripts/powermenu.sh
 #Enter shutdown mode
-bindsym $mod+Shift+q mode "[p]oweroff [r]eboot [s]uspend"
+bindsym $mod+Shift+q exec $powermenu
