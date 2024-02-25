@@ -1,0 +1,6 @@
+[user]
+	email = sjvega1789@gmail.com
+	name = Santiago Vega
+[alias]
+	st = status
+	caddm = commit -a -m
