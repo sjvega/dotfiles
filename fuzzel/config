@@ -1,0 +1,12 @@
+dpi-aware = auto
+font = Anonymice Pro Nerd:size=15
+prompt =   
+icon-theme = Papirus
+terminal = kitty
+
+[colors]
+background = 1E242FFF
+border= 2C9FB5FF
+selection-text = B08130FF
+selection = 282f3eFF
+text = b6c0cdFF

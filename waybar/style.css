@@ -1,0 +1,70 @@
+* {
+	font-size: 22px;
+	font-family: "AnonymicePro Nerd Font";
+}
+
+window#waybar {
+	background: transparent;
+	color: #fdf6e3;
+}
+
+#custom-right-arrow,
+#custom-left-arrow{
+        font-size: 48px;
+	color: #1a1a1a;
+}
+
+#workspaces,
+#window,
+#clock,
+#pulseaudio,
+#memory,
+#cpu,
+#mode,
+#custom-powermenu,
+#tray {
+	background: #1a1a1a;
+}
+
+#workspaces button {
+	padding: 0 10px;
+	color: #fdf6e3;
+}
+#workspaces button.focused {
+	color: #268bd2;
+}
+#workspaces button:hover {
+	box-shadow: inherit;
+	text-shadow: inherit;
+}
+#workspaces button:hover {
+	background: #1a1a1a;
+	border: #1a1a1a;
+	padding: 0 10px;
+}
+
+#pulseaudio {
+	color: #268bd2;
+}
+#memory {
+	color: #2aa198;
+}
+#cpu {
+	color: #6c71c4;
+}
+#battery {
+	color: #859900;
+}
+#disk {
+	color: #b58900;
+}
+
+#clock,
+#pulseaudio,
+#memory,
+#cpu,
+#battery,
+#custom-powermenu,
+#disk {
+	padding: 0 10px;
+}

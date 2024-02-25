@@ -1,0 +1,95 @@
+{
+    "height": 42,
+    "layer": "top",
+    "modules-left": [
+        "custom/powermenu",
+        "sway/workspaces",
+        "sway/mode",
+	"custom/right-arrow"
+    ],
+    "modules-center": [
+	"custom/left-arrow",
+        "sway/window",
+	"custom/right-arrow"
+    ],
+    "modules-right": [
+	"custom/left-arrow",
+        "pulseaudio",
+        "cpu",
+        "memory",
+        "clock",
+        "tray"
+    ],
+	"custom/left-arrow": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow": {
+		"format": "",
+		"tooltip": false
+	},
+
+    "custom/powermenu" : {
+        "format" :  "",
+	"tooltip" : false,
+	"on-click" : "/home/jim/.config/fuzzel/scripts/powermenu.sh"
+    },
+    "sway/workspaces": {
+        "all-outputs": false,
+        "format": "{name}",
+	"format-icons": {
+	"urgent" : "{name}"
+	}
+    },
+    "sway/mode": {},
+    "sway/window": {
+        "format": "{title}",
+        "rewrite": {
+            "(.*) - Mozilla Firefox": "  $1",
+            "(.*) - nvim": " $1",
+            "(.*) - zsh": " [$1]"
+        }
+    },
+    "pulseaudio": {
+        "tooltip": false,
+        "scroll-step": 5,
+        "format": "{icon} {volume}%",
+        "format-muted": "{icon} {volume}%",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-middle": "pavucontrol",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        }
+    },
+    "cpu": {
+        "interval": 15,
+        "format": " {}%",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": " {used}GiB",
+        "max-length": 10,
+	"tooltip":false
+    },
+    "clock": {
+        "format": "{:%H:%M}  ",
+        "format-alt": "{:%A, %B %d, %Y (%R)}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+	    "format" : {
+	      "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+	    }
+        }
+    },
+    "tray": {
+        "icon-size": 24,
+        "spacing": 10
+    }
+}
