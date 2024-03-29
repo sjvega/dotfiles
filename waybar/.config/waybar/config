@@ -1,5 +1,5 @@
 {
-    "height": 42,
+    "height": 52,
     "layer": "top",
     "modules-left": [
         "custom/powermenu",
@@ -14,6 +14,7 @@
     ],
     "modules-right": [
 	"custom/left-arrow",
+        "custom/update",
         "pulseaudio",
         "cpu",
         "memory",
@@ -28,11 +29,22 @@
 		"format": "",
 		"tooltip": false
 	},
-
     "custom/powermenu" : {
         "format" :  "",
 	"tooltip" : false,
 	"on-click" : "/home/jim/.config/fuzzel/scripts/powermenu.sh"
+    },
+    "custom/update": {
+	    "format": "{icon}{}",
+	    "return-type" : "json",
+	    "restart": 3600,
+	    "format-icons" : { 
+		    "pending-updates": " ",
+		    "updated": ""
+	    },
+	    "exec": "waybar-updates",
+	    "exec-if" : "which waybar-updates",
+	    "on-click": "kitty pikaur -Syu", // update system
     },
     "sway/workspaces": {
         "all-outputs": false,
@@ -45,25 +57,24 @@
     "sway/window": {
         "format": "{title}",
         "rewrite": {
-            "(.*) - Mozilla Firefox": "  $1",
-            "(.*) - nvim": " $1",
-            "(.*) - zsh": " [$1]"
+            ".* - Mozilla Firefox" : "  $1",
+            ".* - nvim": " $1",
+            ".* - zsh": " [$1]"
         }
     },
     "pulseaudio": {
-        "tooltip": false,
-        "scroll-step": 5,
-        "format": "{icon} {volume}%",
-        "format-muted": "{icon} {volume}%",
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click-middle": "pavucontrol",
+        "format": "{volume}% {icon}",
+        "format-muted": "🔇",
+        "format-bluetooth": "{volume}% {icon} ",
         "format-icons": {
-            "default": [
-                "",
-                "",
-                ""
-            ]
-        }
+            "headphones": [" ", " ", " "],
+            "default": ["", "", ""]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "/usr/bin/pavucontrol",
+        "on-click-middle": "/usr/bin/pulseaudio-control next-node",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%"
     },
     "cpu": {
         "interval": 15,
@@ -80,6 +91,7 @@
         "format": "{:%H:%M}  ",
         "format-alt": "{:%A, %B %d, %Y (%R)}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
+	"timezone" : "America/Argentina/Buenos_Aires",
         "calendar": {
             "mode": "month",
             "on-scroll": 1,

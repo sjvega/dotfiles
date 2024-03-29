@@ -43,16 +43,23 @@ client.background       #ffffff
 #
 # Notification center
 exec swaync
+# Idling manager
+exec swayidle
+for_window [class="steam_app"] inhibit_idle focus
 # Clipboard manager
 exec wl-paste -t text --watch clipman store --no-persist
-# Autotiling
-#exec
-# Backgrund
+# Autostart
 exec dex -a
-exec swww init
-exec swww img ~/Pictures/Wallpapers/Vertical/japan20240212.jpg  -o HDMI-A-1 -t wave 
+# Backgrund
+exec swww-daemon
+exec swww-daemon img ~/Pictures/Wallpapers/Vertical/japan20240212.jpg  -o HDMI-A-1 -t wave 
 # Numlock
 input type:keyboard xkb_numlock enabled
+# Multiple layouts
+input "type:keyboard" {
+    xkb_layout us,us(intl)
+    xkb_options "grp:ctrl_space_toggle"
+}
 #Disable borders
 for_window [class="^.*"] border pixel 5
 #Disable Mouse Focus
@@ -63,7 +70,7 @@ for_window [class="steam"] max_render_time off, blur off
 ########
 # Gaps #
 ########
-set $dgaps_in 10
+set $dgaps_in 1
 set $dgaps_out 5
 set $dgaps_top 5
 gaps inner $dgaps_in
@@ -161,7 +168,7 @@ bindsym $mod+9 workspace $wksp9
 bindsym $mod+0 workspace $wksp10
 
 # Move between workspaces
-bindsym $mod+grave workspace back_and_forth
+bindsym $mod+tab workspace back_and_forth
 bindsym $mod+n workspace next_on_output
 bindsym $mod+p workspace prev_on_output
 
@@ -178,7 +185,7 @@ bindsym $mod+Control+9 move workspace $wksp9
 bindsym $mod+Control+0 move workspace $wksp10
 
 #Assign Windows to Workspaces
-assign [class="firefox"] $wksp3
+assign [title="Firefox"] $wksp3
 assign [class="Steam"] $wksp9
 assign [title="Steam"] $wksp9
 ##################
