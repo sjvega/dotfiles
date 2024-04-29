@@ -85,6 +85,7 @@ plugins=(
         zsh-navigation-tools
         zsh-syntax-highlighting 
         docker
+        fzf
         )		
 
 
@@ -146,7 +147,7 @@ alias zshconfig='nvim ~/.config/zsh/.zshrc'
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 alias swayconfig="nvim ~/.config/sway/config"
 alias wayconfig="nvim ~/.config/waybar/"
-alias nvimconfig="nvim ~/.config/nvim/init.vim"
+alias nvimconfig="nvim ~/.config/nvim/"
 #
 # systemd aliases
 #
@@ -168,7 +169,7 @@ alias dc-ps="sudo docker ps"
 alias zz="cd -"
 # other aliases
 #
-alias ls="lsd -a"
+alias ls="eza -a --icons=always"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
@@ -188,7 +189,23 @@ export TEXMFHOME=$HOME/.texmf
 #   options   #
 ###############
 setopt globdots
-# zlong_alert config
-zlong_duration=30
-zlong_ignore_cmds="nvim vim pacman pikaur"
-eval "$(atuin init zsh --disable-up-arrow)"
+###############
+#    fzf      #
+###############
+eval "$(fzf --zsh)"
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+## fzf-git
+source ~/.config/zsh/fzf-git/fzf-git.sh
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)             fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
+  esac
+}

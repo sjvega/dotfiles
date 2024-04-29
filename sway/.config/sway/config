@@ -42,17 +42,19 @@ client.background       #ffffff
   output HDMI-A-1 resolution 3840x2160@60Hz position 0,0 transform 270 adaptive_sync on scale 1.25
 #
 # Notification center
-exec swaync
+exec mako -c ~/.config/mako/config
 # Idling manager
 exec swayidle
 for_window [class="steam_app"] inhibit_idle focus
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
 # Clipboard manager
 exec wl-paste -t text --watch clipman store --no-persist
 # Autostart
 exec dex -a
-# Backgrund
-exec swww-daemon
-exec swww-daemon img ~/Pictures/Wallpapers/Vertical/japan20240212.jpg  -o HDMI-A-1 -t wave 
+# Background
+output HDMI-A-1 bg ~/Pictures/Wallpapers/Vertical/japan20240212.jpg fill
+output DP-1 bg ~/Pictures/Wallpapers/.current-wall.jpg fill
 # Numlock
 input type:keyboard xkb_numlock enabled
 # Multiple layouts
@@ -67,6 +69,7 @@ focus_follows_mouse no
 
 # Steam Big Picture fix
 for_window [class="steam"] max_render_time off, blur off
+# Fix a term to wksp1
 ########
 # Gaps #
 ########
@@ -98,6 +101,9 @@ gaps top $dgaps_top
 
     # Thunar
     bindsym $mod+t exec thunar
+    
+    # Clipman manager
+    bindsym $mod+c exec nwg-clipman
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -131,8 +137,8 @@ gaps top $dgaps_top
 # Workspaces #
 ##############
 
-set $wksp1 1:
-set $wksp2 2:
+set $wksp1 1:
+set $wksp2 2: 
 set $wksp3 3:
 set $wksp4 4:
 set $wksp5 5:
@@ -185,9 +191,11 @@ bindsym $mod+Control+9 move workspace $wksp9
 bindsym $mod+Control+0 move workspace $wksp10
 
 #Assign Windows to Workspaces
-assign [title="Firefox"] $wksp3
-assign [class="Steam"] $wksp9
-assign [title="Steam"] $wksp9
+assign [app_id="Firefox"] $wksp3
+assign [class="steam"] $wksp9
+assign [title="stdterm"] $wksp1
+assign [app_id="FFPWA-01HV2FM1M1XXAVSP65AVZ11MHT"] $wksp2
+assign [app_id="FFPWA-01HTFH6M6ATQW920QHST80JXAQ"] $wksp2
 ##################
 # Extra settings #
 ##################
