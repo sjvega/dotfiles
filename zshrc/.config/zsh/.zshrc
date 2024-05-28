@@ -2,26 +2,49 @@ source ~/.config/zpm/zpm.zsh
 
 zpm load \
 	zsh-users/zsh-syntax-highlighting \
-	zsh-users/zsh-autosuggestions \
 	zsh-users/zsh-completions \
+	zsh-users/zsh-autosuggestions \
 	@omz/vi-mode \
 	@omz/fastgit \
-	@omz/zoxide  \
-	@omz/fzf \
-	@omz/colored-man-pages \
+	@omz/fzf     \
 	Aloxaf/fzf-tab \
 #############
 #   apps    #
 #############
 
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(oh-my-posh init zsh --config /usr/share/oh-my-posh/themes/quick-term.omp.json)"
+eval "$(oh-my-posh init zsh --config /usr/share/oh-my-posh/themes/emodipt-extend.omp.json)"
 ###############
 #    fzf      #
 ###############
 eval "$(fzf --zsh)"
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
+export FZF_CTRL_T_OPTS="--preview 'bat --style number,changes --color=always --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+# -- Use fd instead of fzf --
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+# - The first argument to the function ($1) is the base path to start traversal
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+# Disable default completion
+zstyle ':completion:*' menu no
+# Cd/Zoxide fzf prevew
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --color=always $realpath' 
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --tree --color=always $realpath' 
+
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments to fzf.
@@ -31,7 +54,9 @@ _fzf_comprun() {
 
   case "$command" in
     cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    *)            fzf --preview "bat --color=always --line-range :500 {}" "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
 #############
@@ -87,6 +112,10 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 compinit -d ~/.config/zsh/zcompdump-$ZSH_VERSION
 export HISTFILE=~/.config/zsh/.zsh_history
 export TEXMFHOME=$HOME/.texmf
+###############
+#   paths     #
+### ###########
+export PATH=~/.local/bin/:$PATH
 ###############
 #   options   #
 ###############

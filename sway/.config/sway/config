@@ -17,7 +17,7 @@ bindsym --release button2 kill
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 # Your preferred terminal emulator
-set $term kitty
+set $term kitty 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -35,14 +35,14 @@ client.background       #ffffff
 ###########
 # Startup #
 ###########
-##################
 # Monitor config #
-##################
   output DP-1 resolution 3840x2160@240Hz position 1800,520 adaptive_sync on
   output HDMI-A-1 resolution 3840x2160@60Hz position 0,0 transform 270 adaptive_sync on scale 1.25
 #
 # Notification center
 exec mako -c ~/.config/mako/config
+# Blur
+blur enable
 # Idling manager
 exec swayidle
 for_window [class="steam_app"] inhibit_idle focus
@@ -53,8 +53,7 @@ exec wl-paste -t text --watch clipman store --no-persist
 # Autostart
 exec dex -a
 # Background
-output HDMI-A-1 bg ~/Pictures/Wallpapers/Vertical/japan20240212.jpg fill
-output DP-1 bg ~/Pictures/Wallpapers/.current-wall.jpg fill
+exec swaybg -o HDMI-A-1 -i ~/Pictures/Wallpapers/Vertical/japan20240212.jpg -m fill -o DP-1 -i ~/Pictures/Wallpapers/.current-wall.jpg -m fill
 # Numlock
 input type:keyboard xkb_numlock enabled
 # Multiple layouts

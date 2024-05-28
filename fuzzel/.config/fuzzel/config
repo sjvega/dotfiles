@@ -1,6 +1,6 @@
 dpi-aware = auto
-font = Anonymice Pro Nerd:size=15
-prompt =   
+font = Iosevka:size=20
+prompt = [>_]
 icon-theme = Papirus
 terminal = kitty
 
