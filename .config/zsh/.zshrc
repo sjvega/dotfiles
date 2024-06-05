@@ -54,6 +54,7 @@ alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 alias swayconfig="nvim ~/.config/sway/config"
 alias wayconfig="nvim ~/.config/waybar/"
 alias nvimconfig="nvim ~/.config/nvim/"
+alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
 
 #
 # systemd aliases
