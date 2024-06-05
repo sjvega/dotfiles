@@ -3,10 +3,43 @@
 	name = Santiago Vega
 [alias]
 	st = status
-	caddm = commit -a -m
+	last = log -1 HEAD --stat
+	lg = log --oneline --decorate
+	lf = log --decorate --numstat
+	filelog = log -u
 	cm = commit -m
-[init]
-	defaultBranch = main
+	ca = commit -a
+	cam = commit -a -m
+	co = checkout
+	sw = switch
+	swc = switch -c
+	cob = checkout -b
+	ap = add -p
+	ai = add -i
+	findfiles = "!git ls-files | grep -i"
+	listalias = "!git config --global -l | grep alias | cut -c 7-"
+	restoreall = checkout .
+	prunebranches = remote prune origin
+	rm = clean -fd
+	amend = commit --amend
+	amendne = commit --amend --no-edit
+	master = "!git checkout master && git pull"
+	add = add -p
+	restore = restore .
+[core]
+	editor = nvim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[push]
+	autoSetupRemote = true
+[advice]
+	addIgnoredFile = false
+	addEmptyPathspec = false
+[help]
+	autocorrect = 1
 [core]
     pager = delta
 
@@ -14,7 +47,12 @@
     diffFilter = delta --color-only
 
 [delta]
-    navigate = true    # use n and N to move between diff sections
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
 
 [merge]
     conflictstyle = diff3
