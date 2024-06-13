@@ -3,13 +3,16 @@
 #######################
 source ~/.config/zpm/zpm.zsh
 
+zpm load @omz
+zpm load @omz/git
+zpm load @omz/fzf
+zpm load @omz/zoxide
+zpm load @omz/magic-enter
+
 zpm load zsh-users/zsh-syntax-highlighting
 zpm load zsh-users/zsh-completions
 zpm load zsh-users/zsh-autosuggestions
 zpm load Aloxaf/fzf-tab
-zpm load @omz/git
-zpm load @omz/fzf
-zpm load @omz/zoxide
 zpm load softmoth/zsh-vim-mode
 
 ##########
@@ -31,6 +34,11 @@ eval "$(fzf --zsh)"
 # tmux #
 ########
 [ -z "$TMUX" ] && {exec tmux new-session && exit;}
+
+###############
+# magic-enter #
+###############
+export MAGIC_ENTER_OTHER_COMMAND='clear'
 
 ###############
 #   aliases   #
