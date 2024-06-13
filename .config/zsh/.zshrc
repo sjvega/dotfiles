@@ -15,6 +15,8 @@ zpm load zsh-users/zsh-autosuggestions
 zpm load Aloxaf/fzf-tab
 zpm load softmoth/zsh-vim-mode
 
+export PATH=$PATH:/Users/santivega/bin
+export PATH=$PATH:/opt/homebrew/bin
 ##########
 # Zoxide #
 ##########
@@ -45,37 +47,15 @@ export MAGIC_ENTER_GIT_COMMAND='clear && git status -u'
 #   aliases   #
 ###############
 #
-# pikaur aliases
-#
-alias install='pikaur -S'
-alias update='pikaur -Syu'
-alias remove='pikaur -Rsc'
-alias clean='pikaur -Sc'
-alias search='pikaur -Ss'
-alias remove-orphans='pikaur -Qtdq | pikaur -Rns - '
-
-#
 # config aliases
 #
 alias config="nvim ~/.config/"
 alias zshconfig='nvim ~/.config/zsh/.zshrc'
 alias zshsource="source ~/.config/zsh/.zshrc"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
-alias swayconfig="nvim ~/.config/sway/config"
-alias wayconfig="nvim ~/.config/waybar/"
 alias nvimconfig="nvim ~/.config/nvim/"
 alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
 alias tmuxsource="tmux source ~/.config/tmux/tmux.conf"
-#
-# systemd aliases
-#
-alias restart="systemctl restart"
-alias start="systemctl start"
-alias status="systemctl status"
-alias stop="systemctl stop"
-alias enable="systemctl enable"
-alias disable="systemctl disable"
-
 #
 # docker aliases
 alias dc-up="sudo docker-compose up -d"
@@ -88,6 +68,21 @@ alias dc-ps="sudo docker ps"
 #
 alias ls="eza -a -T -L 1 --color=always --icons=always"
 
+# muun aliases
+alias muun-vpn='/Applications/Tailscale.app/Contents/MacOS/Tailscale up --hostname "santivega.muun.com" --login-server https://tailscale.muun.io:8443 --force-reauth --shields-up --accept-routes'
+alias dgrw='aws-vault exec rdsrw --duration=4h --prompt osascript -- open \/Applications\/DataGrip.app\/'
+alias dgro='aws-vault exec rdsro --duration=4h --prompt osascript -- open \/Applications\/DataGrip.app\/'
+alias dgsupport='aws-vault exec rdssupport --duration=4h --prompt osascript --server -- open \/Applications\/DataGrip.app\/'
+alias dgrw='aws-vault exec rdsro --duration=4h --prompt osascript --server -- open \/Applications\/DataGrip.app\/'
+alias muun='cd ~/Code/muun/ && /Users/santivega/Code/muun/toolkit/bin/muun'
+alias dc='sh ~/Code/muun/tools/dc-wrapper.sh'
+alias aws-dash='aws-vault login dev'
+alias muun-dev-pods="kubectl config use-context dev && kubectl get pods"
+alias muun-prd-pods="kubectl config use-context prd && kubectl get pods"
+
+alias zshconfig='nvim ~/.zshrc'
+alias lg='lazygit'
+alias ld='lazydocker'
 ###############
 #  variables  #
 ###############
