@@ -39,6 +39,7 @@ eval "$(fzf --zsh)"
 # magic-enter #
 ###############
 export MAGIC_ENTER_OTHER_COMMAND='clear'
+export MAGIC_ENTER_GIT_COMMAND='clear && git status -u'
 
 ###############
 #   aliases   #
@@ -118,6 +119,7 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt globdots
 
 ##################
 # Extra keybinds #
