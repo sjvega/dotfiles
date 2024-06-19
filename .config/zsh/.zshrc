@@ -30,7 +30,7 @@ eval "$(starship init zsh)"
 ###############
 #    fzf      #
 ###############
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
 ########
 # tmux #
