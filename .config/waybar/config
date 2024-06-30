@@ -64,10 +64,10 @@
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
-        "format-muted": "🔇",
+        "format-muted": "󰝟",
         "format-bluetooth": "{volume}% {icon} ",
         "format-icons": {
-            "headphones": [" ", " ", " "],
+            "alsa_output.usb-Kingston_HyperX_Quadcast_4110-00.pro-output-0.4": [" ", " ", " "],
             "default": ["", "", ""]
         },
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",

@@ -57,6 +57,7 @@ alias remove-orphans='pikaur -Qtdq | pikaur -Rns - '
 #
 # config aliases
 #
+alias config="nvim ~/.config/"
 alias zshconfig='nvim ~/.config/zsh/.zshrc'
 alias zshsource="source ~/.config/zsh/.zshrc"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
@@ -64,7 +65,7 @@ alias swayconfig="nvim ~/.config/sway/config"
 alias wayconfig="nvim ~/.config/waybar/"
 alias nvimconfig="nvim ~/.config/nvim/"
 alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
-
+alias tmuxsource="tmux source ~/.config/tmux/tmux.conf"
 #
 # systemd aliases
 #
