@@ -58,7 +58,7 @@ exec swaybg -o HDMI-A-1 -i ~/Pictures/Wallpapers/Vertical/japan20240212.jpg -m f
 input type:keyboard xkb_numlock enabled
 # Multiple layouts
 input "type:keyboard" {
-    xkb_layout us,us(intl)
+    xkb_layout us(altgr-intl)
     xkb_options "grp:ctrl_space_toggle"
 }
 #Disable borders
