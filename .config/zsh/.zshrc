@@ -29,6 +29,8 @@ eval "$(starship init zsh)"
 #    fzf      #
 ###############
 eval "$(fzf --zsh)"
+enable-fzf-tab
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 ########
 # tmux #
