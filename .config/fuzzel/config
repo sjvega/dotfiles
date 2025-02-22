@@ -1,5 +1,5 @@
 dpi-aware = auto
-font = Iosevka:size=20
+font = CaskaydiaMonoNerdFont:size=20
 prompt = [>_]
 icon-theme = Papirus
 terminal = kitty
