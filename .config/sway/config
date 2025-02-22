@@ -53,13 +53,12 @@ exec wl-paste -t text --watch clipman store --no-persist
 # Autostart
 exec dex -a
 # Background
-exec swaybg -o HDMI-A-1 -i ~/Pictures/Wallpapers/Vertical/japan20240212.jpg -m fill -o DP-1 -i ~/Pictures/Wallpapers/.current-wall.jpg -m fill
+exec azote ~/.azotebg
 # Numlock
 input type:keyboard xkb_numlock enabled
 # Multiple layouts
 input "type:keyboard" {
     xkb_layout us(altgr-intl)
-    xkb_options "grp:ctrl_space_toggle"
 }
 #Disable borders
 for_window [class="^.*"] border pixel 5
@@ -96,11 +95,8 @@ gaps top $dgaps_top
     bindsym $mod+d exec $menu
 
     # Firefox
-    bindsym $mod+b exec firefox
+    bindsym $mod+b exec zen-browser
 
-    # Thunar
-    bindsym $mod+t exec thunar
-    
     # Clipman manager
     bindsym $mod+c exec nwg-clipman
 
@@ -149,7 +145,7 @@ set $wksp10 10:
 set $wksp11 11:
 
 workspace $wksp1 output HDMI-A-1
-workspace $wksp2 output HDMI-A-1
+workspace $wksp2 output DP-1
 workspace $wksp3 output DP-1
 workspace $wksp4 output DP-1
 workspace $wksp5 output DP-1
@@ -193,8 +189,6 @@ bindsym $mod+Control+0 move workspace $wksp10
 assign [app_id="Firefox"] $wksp3
 assign [class="steam"] $wksp9
 assign [title="stdterm"] $wksp1
-assign [app_id="FFPWA-01HV2FM1M1XXAVSP65AVZ11MHT"] $wksp2
-assign [app_id="FFPWA-01HTFH6M6ATQW920QHST80JXAQ"] $wksp2
 
 ######### 
 # Scratchpad dropdown term 
