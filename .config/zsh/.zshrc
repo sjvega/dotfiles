@@ -97,7 +97,6 @@ export SUDO_EDITOR=nvim
 export EDITOR=nvim
 export VISUAL=nvim
 export MOZ_ENABLE_WAYLAND=1
-export QT_QPA_PLATFORMTHEME="qt5ct"
 export HISTFILE=~/.config/zsh/.zsh_history
 export TEXMFHOME=$HOME/.texmf
 
