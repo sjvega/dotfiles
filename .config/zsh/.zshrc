@@ -28,9 +28,9 @@ eval "$(starship init zsh)"
 ###############
 #    fzf      #
 ###############
-eval "$(fzf --zsh)"
-enable-fzf-tab
+source <(fzf --zsh)
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+enable-fzf-tab
 
 ########
 # tmux #
@@ -90,6 +90,8 @@ alias dc-ps="sudo docker ps"
 #
 alias ls="eza -a -T -L 1 --color=always --icons=always"
 
+source '~/.config/zsh/otheraliases'
+
 ###############
 #  variables  #
 ###############
@@ -110,7 +112,6 @@ export PATH=~/.local/bin/:$PATH
 ####################
 HISTSIZE=500000
 SAVEHIST=500000
-setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
