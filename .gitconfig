@@ -22,10 +22,11 @@
 	prunebranches = remote prune origin
 	rm = clean -fd
 	amend = commit --amend
-	amendne = commit --amend --no-edit
+	amend-ne = commit --amend --no-edit
 	master = "!git checkout master && git pull"
 	add = add -p
 	restore = restore .
+        undo = reset HEAD^
 [core]
 	editor = nvim
 [filter "lfs"]
