@@ -90,7 +90,7 @@ alias dc-ps="sudo docker ps"
 #
 alias ls="eza -a -T -L 1 --color=always --icons=always"
 
-source '~/.config/zsh/otheraliases'
+source "$HOME/.config/zsh/other_alias"
 
 ###############
 #  variables  #
